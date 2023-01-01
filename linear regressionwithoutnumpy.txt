@@ -1,0 +1,77 @@
+import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4, 5]
+y = [7, 14, 15, 18, 19]
+
+n = len(x)
+
+# x_mean and y_mean
+
+x_mean = sum(x) / n
+y_mean = sum(y) / n
+
+print(x_mean, y_mean)
+
+# slope and intercept
+
+Sxy = 0 
+sum_xy = sum_xx = 0
+for i in range(0, n):
+    sum_xy = sum_xy + (x[i] * y[i]) 
+    sum_xx = sum_xx + (x[i] * x[i])
+    
+Sxy = sum_xy - n * x_mean * y_mean # Covariance(x,y)
+Sxx = sum_xx - n * x_mean * x_mean # variance(x)
+
+print(Sxy, Sxx)
+
+b1 = Sxy / Sxx      # slope
+b0 = y_mean - (b1 * x_mean)  # intercept
+
+print("Slope b1 is ", b1)
+print("Intercept b0 is ",b0)
+
+plt.scatter(x,y,color="yellow")
+plt.xlabel("Independent variable X")
+plt.ylabel("Dependent variable y")
+
+y_pred = []
+
+for i in range(0, n):
+    y_pred.append(b1 * x[i] + b0)
+
+print(y_pred)
+
+plt.scatter(x, y, color="green")
+plt.plot(x, y_pred, color="red")
+plt.xlabel("x")
+plt.ylabel("y")
+
+error = []
+for i in range(0, n):
+    error.append(round(y[i] - y_pred[i],2))
+
+print(error)
+
+se = 0
+for i in range(0, n):
+    se = se + (error[i] ** 2)
+
+print("Squared error is", round(se,2))
+
+mse = se / n
+print("Mean squared error is", round(mse,2))
+
+rmse = mse ** 1/2
+print("root mean square error is",round(rmse,2))
+
+sst = 0
+for i in range(0,n):
+    sst = sst + ((y[i] - y_mean) ** 2)
+
+R2 = 1 - (se/sst)    
+    
+print("R square is", round(R2,2))
+
+
+
