@@ -1,0 +1,10 @@
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+X = [4, 5, 10, 4, 3, 11, 14, 6, 10, 12, 2, 4, 5, 10, 12, 9, 2, 3, 10, 8, 4, 5]
+y = [21, 19, 24, 17, 16, 25, 24, 22, 21, 16, 15, 17, 23, 15, 12, 13, 16, 17, 20, 25, 30, 22]
+data = list(zip(X,y))
+print(data)
+kmeans = KMeans(n_clusters=3)
+kmeans.fit(data)
+plt.scatter(X, y, c=kmeans.labels_);
+
